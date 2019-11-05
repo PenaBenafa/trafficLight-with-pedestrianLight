@@ -1,0 +1,163 @@
+const int buttn1 = 7;
+const int buttn2 = 9;
+const int red = 2;
+const int yellow = 3;
+const int green = 6;
+const int red2 = 12;
+const int green2 = 13;
+
+int currentstate = red;
+
+
+void setup() {
+  
+  pinMode(red, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(green, OUTPUT);
+  pinMode(green2, OUTPUT);
+  pinMode(red2, OUTPUT);
+  pinMode(buttn1, INPUT);
+  pinMode(buttn2, INPUT);
+ 
+}
+
+
+void loop() {
+
+    defaultlights();
+
+  switch (currentstate){
+
+  case red:
+  
+//pedestrian lights
+  if (digitalRead(buttn2) == HIGH){
+    switchingLights2();
+    currentstate = yellow;
+}
+
+//driver control lights
+  else if (digitalRead(buttn1) == HIGH) {
+      switchingLights1();
+      currentstate = yellow;
+    }
+
+  case yellow:
+
+//pedestrian lights
+  if (digitalRead(buttn2) == HIGH){
+    switchingLights2();
+    currentstate = green;
+}
+
+//driver control lights
+  else if (digitalRead(buttn1) == HIGH) {
+      switchingLights1();
+      currentstate = green;
+    }
+
+  case green:
+
+  //pedestrian lights
+  if (digitalRead(buttn2) == HIGH){
+    switchingLights3();
+    currentstate = yellow;
+}
+
+//driver control lights
+  else if (digitalRead(buttn1) == HIGH) {
+      switchingLights1();
+      currentstate = yellow;
+    }
+     
+     
+  }
+    
+ }
+
+
+
+
+
+
+//FUNCTIONS CREATED AFTER THE LOOP
+
+void defaultlights(){
+       digitalWrite(red2, HIGH);
+       digitalWrite(red, HIGH);
+       delay(6000);
+       digitalWrite(red, LOW);
+       delay(200);
+
+       digitalWrite(red2, HIGH);
+       digitalWrite(yellow, HIGH);
+       delay(2000);
+       digitalWrite(yellow, LOW);
+       delay(100);
+
+       digitalWrite(red2, HIGH);
+       digitalWrite(green, HIGH);
+       delay(6000);
+       digitalWrite(green, LOW);
+       delay(200);
+
+       digitalWrite(red2, HIGH);
+       digitalWrite(yellow, HIGH);
+       delay(2000);
+       digitalWrite(yellow, LOW);
+       delay(100);
+}
+
+
+
+void switchingLights1(){
+  digitalWrite(red2, HIGH);
+  digitalWrite(yellow, HIGH);
+  delay(800);
+  digitalWrite(yellow, LOW);
+  delay(50);
+
+
+  digitalWrite(red2, HIGH);
+  digitalWrite(green, HIGH);
+  delay(10000);
+  digitalWrite(green, LOW);
+  delay(200);
+}
+
+
+
+void switchingLights3(){
+  digitalWrite(yellow, HIGH);
+  delay(800);
+  digitalWrite(yellow, LOW);
+  delay(50);
+  
+  digitalWrite(red, HIGH);
+  delay(5000);
+  
+  digitalWrite(red2, LOW);
+  digitalWrite(green2, HIGH);
+  delay(6000);
+  digitalWrite(green2, LOW);
+  delay(200);
+  
+  digitalWrite(red, LOW);
+  delay(200);
+}
+
+
+void switchingLights2(){
+  digitalWrite(red, HIGH);
+  delay(5000);
+  
+  digitalWrite(red2, LOW);
+  digitalWrite(green2, HIGH);
+  delay(6000);
+  digitalWrite(green2, LOW);
+  delay(200);
+  
+  digitalWrite(red, LOW);
+  delay(200);
+}
+  
